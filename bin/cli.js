@@ -2,6 +2,7 @@
 
 import { execSync } from "child_process";
 import path from "path";
+import fs from "fs";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
@@ -52,6 +53,32 @@ const cloneRepository = (destination) => {
   );
 };
 
+const removeBinFolder = (destination) => {
+  const binPath = path.join(destination, "node_modules", ".bin");
+  if (fs.existsSync(binPath)) {
+    fs.rmSync(binPath, { recursive: true, force: true });
+    console.log(
+      logSymbols.success,
+      chalk.green(".bin folder removed successfully!")
+    );
+  }
+};
+
+const removeBinFieldFromPackageJson = (destination) => {
+  const packageJsonPath = path.join(destination, "package.json");
+  if (fs.existsSync(packageJsonPath)) {
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+    if (packageJson.bin) {
+      delete packageJson.bin;
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+      console.log(
+        logSymbols.success,
+        chalk.green("Removed 'bin' field from package.json!")
+      );
+    }
+  }
+};
+
 const installDependencies = (packageManager, destination) => {
   console.log(
     chalk.yellow(`\n🔧 Installing dependencies using ${packageManager}...\n`)
@@ -61,6 +88,8 @@ const installDependencies = (packageManager, destination) => {
     logSymbols.success,
     chalk.green("Dependencies installed successfully!")
   );
+  removeBinFolder(destination);
+  removeBinFieldFromPackageJson(destination);
 };
 
 const main = async () => {
