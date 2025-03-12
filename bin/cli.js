@@ -6,7 +6,7 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
 
-const REPO_URL = "https://github.com/hhimanshu/react-ts-starter";
+const REPO_URL = "https://github.com/abujobayer0/node-enterprise-starter";
 
 const runCommand = (command) => {
   try {
