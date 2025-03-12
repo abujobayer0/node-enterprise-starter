@@ -60,12 +60,22 @@ const removeBinFolder = (destination) => {
   }
 };
 
-const removeBinFieldFromPackageJson = (destination) => {
+const removeBinAndTypeFieldsFromPackageJson = (destination) => {
   const packageJsonPath = path.join(destination, "package.json");
   if (fs.existsSync(packageJsonPath)) {
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+    let modified = false;
+
     if (packageJson.bin) {
       delete packageJson.bin;
+      modified = true;
+    }
+    if (packageJson.type) {
+      delete packageJson.type;
+      modified = true;
+    }
+
+    if (modified) {
       fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
     }
   }
@@ -81,7 +91,7 @@ const installDependencies = (packageManager, destination) => {
     chalk.green("Dependencies installed successfully!")
   );
   removeBinFolder(destination);
-  removeBinFieldFromPackageJson(destination);
+  removeBinAndTypeFieldsFromPackageJson(destination);
 };
 
 const main = async () => {
