@@ -54,13 +54,9 @@ const cloneRepository = (destination) => {
 };
 
 const removeBinFolder = (destination) => {
-  const binPath = path.join(destination, "node_modules", ".bin");
+  const binPath = path.join(destination, "bin");
   if (fs.existsSync(binPath)) {
     fs.rmSync(binPath, { recursive: true, force: true });
-    console.log(
-      logSymbols.success,
-      chalk.green(".bin folder removed successfully!")
-    );
   }
 };
 
@@ -71,10 +67,6 @@ const removeBinFieldFromPackageJson = (destination) => {
     if (packageJson.bin) {
       delete packageJson.bin;
       fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-      console.log(
-        logSymbols.success,
-        chalk.green("Removed 'bin' field from package.json!")
-      );
     }
   }
 };
