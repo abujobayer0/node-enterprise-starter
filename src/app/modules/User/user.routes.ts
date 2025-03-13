@@ -27,7 +27,7 @@ router.get(
  * @desc Get current user's profile
  * @access Private -  User
  */
-router.get("/get-me", Auth(userRole.user), UserController.getMe);
+router.get("/profile", Auth(userRole.user), UserController.getMe);
 
 /**
  * @route GET /api/users/:id

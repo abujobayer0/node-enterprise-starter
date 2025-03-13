@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import config from "../../config";
-import User from "../module/Auth/auth.model";
-import { AuthServices } from "../module/Auth/auth.service";
-import { userRole } from "../module/Auth/auth.utils";
+import User from "../modules/Auth/auth.model";
+import { AuthServices } from "../modules/Auth/auth.service";
+import { userRole } from "../modules/Auth/auth.utils";
 
 export const seed = async () => {
   try {

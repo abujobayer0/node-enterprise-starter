@@ -5,8 +5,8 @@ import AppError from "../errors/AppError";
 import catchAsync from "../utils/catchAsync";
 import { verifyToken } from "../utils/tokenGenerateFunction";
 import config from "../../config";
-import { userRole } from "../module/Auth/auth.utils";
-import User from "../module/Auth/auth.model";
+import { userRole } from "../modules/Auth/auth.utils";
+import User from "../modules/Auth/auth.model";
 
 const Auth = (...requiredRoles: (keyof typeof userRole)[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {

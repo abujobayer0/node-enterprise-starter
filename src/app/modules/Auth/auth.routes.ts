@@ -41,7 +41,7 @@ router.post(
  * @desc Generate password reset link
  * @access Public
  */
-router.post("/reset-link", AuthController.resetLink);
+router.post("/reset-password", AuthController.resetLink);
 
 /**
  * @route POST /api/auth/forgot-password
@@ -53,11 +53,11 @@ router.post("/forgot-password", AuthController.forgetPassword);
 /**
  * @route POST /api/auth/change-password
  * @desc Change user password
- * @access Private - Admin, User
+ * @access Private - User
  */
 router.post(
   "/change-password",
-  Auth(userRole.admin, userRole.user),
+  Auth(userRole.user),
   AuthController.changePassword
 );
 
